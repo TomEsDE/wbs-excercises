@@ -14,7 +14,7 @@ class Calculator {
 
   addValue(value) {
     // console.log('addValue', value);
-    const lastVal = this.getLastEval();
+    const lastVal = this.getLastVal();
 
     if (lastVal.type === 'operator') {
       this.evalArray.push({ type: 'value', val: value });
@@ -28,7 +28,7 @@ class Calculator {
 
   addFloat() {
     console.log('addFloat');
-    const lastVal = this.getLastEval();
+    const lastVal = this.getLastVal();
 
     // console.log(lastVal);
 
@@ -45,7 +45,7 @@ class Calculator {
 
   addOperation(operator) {
     // console.log('addOperation', operator);
-    const lastVal = this.getLastEval();
+    const lastVal = this.getLastVal();
     // console.log(lastVal);
 
     if (lastVal.type === 'operator') {
@@ -122,7 +122,7 @@ class Calculator {
     print(printText);
   }
 
-  getLastEval() {
+  getLastVal() {
     const lastVal = this.evalArray[this.evalArray.length - 1];
     return lastVal ? lastVal : { type: 'operator', val: '' };
   }
