@@ -29,16 +29,17 @@ addMessage("Let's go!");
  */
 
 // Code here
-document.getElementById('textform').onsubmit = event => {
+// document.getElementById('textform').onsubmit = event => {
+document.getElementById('textform').addEventListener('submit', event => {
   console.log('onsubmit');
   event.preventDefault()
 
   const msg = document.getElementById('inputMsg').value
-  if(msg) addMessage(msg)
+  if(msg.trim().length) addMessage(msg)
 
   document.getElementById('inputMsg').value = ''
   addMsgsEvent()
-}
+})
 
 /**
  * Listen to the click on each message and create an alert
@@ -48,16 +49,16 @@ document.getElementById('textform').onsubmit = event => {
 
 // Code here
 const addMsgsEvent = () => document.querySelectorAll('.message').forEach(msgEl => {
-  // console.log(msgEl.children[0]);
+  console.log(msgEl.children[0]);
   addMsgAlert(msgEl)
 })
 
 function addMsgAlert(msgEl) {  
-  msgEl.onclick = event => {
+  msgEl.addEventListener('click', event => {
     console.log('msg clicked');
     // console.log('target', event.target)
     alert(`date: ${msgEl.children[0].dataset.date}`)
-  }
+  })
 }
 
 addMsgsEvent()
@@ -68,7 +69,7 @@ addMsgsEvent()
  */
 
 // Code here
-document.getElementById('inputMsg').onkeypress = event => {
+document.getElementById('inputMsg').addEventListener('keypress', event => {
   console.log('keypress');
   typing()
-}
+})
