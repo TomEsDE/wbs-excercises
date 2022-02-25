@@ -2,6 +2,7 @@ import React from 'react';
 import { Map, Marker } from 'pigeon-maps';
 import { MapContainer, Popup, TileLayer } from 'react-leaflet';
 
+// ! bei leaflet unbeding diese css einbinden
 import 'leaflet/dist/leaflet.css';
 
 function MapComponent({ lng, lat, zoom, leaflet }) {
