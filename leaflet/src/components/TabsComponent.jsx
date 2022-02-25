@@ -30,6 +30,11 @@ export default function TabsComponent() {
     },
   ]);
 
+  const [leaflet, setLeaflet] = useState(false);
+  function toggleMapStyle() {
+    setLeaflet(!leaflet);
+  }
+
   function addLocation(event) {
     event.preventDefault();
     console.table(locations);
@@ -94,6 +99,13 @@ export default function TabsComponent() {
         >
           <button>Add Location</button>
         </div>
+        <button
+          style={{ marginBottom: '1rem' }}
+          type="button"
+          onClick={toggleMapStyle}
+        >
+          Switch to {leaflet ? 'Pigeon' : 'Leaflet'}
+        </button>
       </form>
 
       <Tabs>
@@ -109,6 +121,7 @@ export default function TabsComponent() {
               lng={location.lng}
               lat={location.lat}
               zoom={location.zoom}
+              leaflet={leaflet}
             />
           </TabPanel>
         ))}
