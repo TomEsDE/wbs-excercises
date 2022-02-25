@@ -95,6 +95,7 @@ export default function TabsComponent() {
           <button onClick={addLocation}>Add Location</button>
         </div>
       </form>
+
       <Tabs>
         <TabList>
           {locations.map((location, index) => (
