@@ -92,7 +92,7 @@ export default function TabsComponent() {
             marginBottom: '2rem',
           }}
         >
-          <button onClick={addLocation}>Add Location</button>
+          <button>Add Location</button>
         </div>
       </form>
 
