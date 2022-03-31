@@ -15,12 +15,13 @@ class Calculator {
   addValue(value) {
     // console.log('addValue', value);
     const lastVal = this.getLastVal();
+    // console.log('lastVal', lastVal);
 
     if (lastVal.type === 'operator') {
       this.evalArray.push({ type: 'value', val: value });
       // print(value);
     } else {
-      lastVal.val = lastVal.val + value;
+      lastVal.val += value.toString();
       // print(value);
     }
     this.print();
@@ -136,6 +137,37 @@ class Calculator {
 }
 
 const calc = new Calculator();
+
+function checkKeypress({ target, keyCode }) {
+  // numbers from 0 to 9
+  const keycodesNums = [96, 97, 98, 99, 100, 101, 102, 103, 104, 105];
+  const keycodesFloat = [110, 188, 190];
+  const keycodesAdd = [107, 187];
+  const keycodesMinus = [109, 89];
+  const keycodesMulti = [106, 187];
+  const keycodesDivide = [111, 55];
+  const keycodeEnter = 13;
+
+  if (keycodesNums.indexOf(keyCode) >= 0) {
+    // console.log('keyCode', keyCode);
+    calc.addValue(keycodesNums.indexOf(keyCode));
+  } else if (keycodesFloat.indexOf(keyCode) >= 0) {
+    calc.addFloat();
+  } else if (keycodesAdd.indexOf(keyCode) >= 0) {
+    calc.addOperation('+');
+  } else if (keycodesMinus.indexOf(keyCode) >= 0) {
+    calc.addOperation('-');
+  } else if (keycodesMulti.indexOf(keyCode) >= 0) {
+    calc.addOperation('*');
+  } else if (keycodesDivide.indexOf(keyCode) >= 0) {
+    calc.addOperation('/');
+  } else if (keycodeEnter === keyCode) {
+    calc.equals();
+  }
+}
+
+// Triggers when key is released
+document.addEventListener('keyup', checkKeypress);
 
 const calculatorScreen = document.querySelector('#calculator .screen');
 const equals = document.querySelector('#calculator .eval');

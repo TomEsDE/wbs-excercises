@@ -16,7 +16,7 @@ function MapComponent({ lng, lat, zoom, leaflet }) {
         </Map>
       )}
       {leaflet && (
-        <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+        <MapContainer center={position} zoom={zoom} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
