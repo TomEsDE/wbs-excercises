@@ -12,12 +12,12 @@ const PORT = process.env.PORT ?? 3004;
 /** images & co */
 app.use(express.static('public'));
 
-// app.get('/verify/:token', secure);
-// app.use('/user', routesUser);
+// routing middleware
 app.use(routesUpload);
 
 /** Error handling */
 app.use((error, req, res, next) => {
+  console.log(error);
   let errorMsg = '';
   if (error instanceof Error) {
     errorMsg = { error: error.message };

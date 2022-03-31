@@ -1,20 +1,38 @@
+import fs from 'fs';
+import path from 'path';
+
 class UploadController {
-  async doUpload(req, res, next) {
-    try {
-      // req.file is the `avatar` file
-      // req.body will hold the text fields, if there were any
-      console.log('file', req.file);
-      console.log('body', req.body);
+  async doUploadPic(req, res, next) {
+    return await doUpload(req, res, next);
+  }
 
-      if (!req.file) {
-        return next(new Error('no file found'));
+  async doUploadPics(req, res, next) {
+    req.file = req.images[0];
+    return await doUpload(req, res, next);
+  }
+}
+
+async function doUpload(req, res, next) {
+  try {
+    let destinationPath = `imgs/${req.file.originalname}`;
+
+    fs.rename(
+      req.file.path,
+      path.resolve(`public/${destinationPath}`),
+      function (err) {
+        if (err) throw err;
+        console.log('File moved and renamed.');
       }
+    );
 
-      return res.status(200).json({ check: true });
-    } catch (error) {
-      console.log(error);
-      return res.status(400).json(error);
-    }
+    return res
+      .status(200)
+      .send(
+        `<h2>Here is the picture:</h2><img width='800' src='/${destinationPath}' alt='something'/>`
+      );
+  } catch (error) {
+    console.log(error);
+    next(error);
   }
 }
 
