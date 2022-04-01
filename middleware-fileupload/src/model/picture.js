@@ -13,11 +13,13 @@ class Picture {
   }
 
   async getPictures() {
-    const result = await db('picture').select({
-      id: 'id',
-      fileName: 'name',
-      path: 'path',
-    });
+    const result = await db('picture')
+      .select({
+        id: 'id',
+        fileName: 'name',
+        path: 'path',
+      })
+      .orderBy('id', 'desc');
 
     return result;
   }

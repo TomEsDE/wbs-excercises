@@ -13,6 +13,8 @@ routesUpload.get('/', (req, res, next) => {
   return res.status(200).sendFile(path.resolve('public/fileupload.html'));
 });
 
+routesUpload.get('/get-pics', uploadController.getPictures);
+
 routesUpload.post(
   '/upload-profile-pic',
   upload.single('profile_pic'),

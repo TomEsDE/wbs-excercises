@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { routesUpload } from './routes/upload';
+import morgan from 'morgan';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
@@ -9,6 +10,7 @@ if (process.env.NODE_ENV !== 'production') {
 const app = express();
 const PORT = process.env.PORT ?? 3004;
 
+app.use(morgan('dev'));
 /** images & co */
 app.use(express.static('public'));
 
