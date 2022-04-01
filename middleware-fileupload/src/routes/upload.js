@@ -2,7 +2,7 @@ import express from 'express';
 import uploadController from '../controller/upload';
 import path from 'path';
 import multer from 'multer';
-import { checkImage, checkImages } from '../../middleware/checkImage';
+import { checkImage, checkImages } from '../middleware/checkImage';
 
 // multer config
 const upload = multer({ dest: path.resolve('public/uploads/') });
@@ -17,14 +17,14 @@ routesUpload.post(
   '/upload-profile-pic',
   upload.single('profile_pic'),
   checkImage,
-  uploadController.doUploadPic
+  uploadController.doUpload
 );
 
 routesUpload.post(
   '/upload-cat-pics',
   upload.array('cat_pics', 10),
   checkImages,
-  uploadController.doUploadPics
+  uploadController.doUpload
 );
 
 export { routesUpload };

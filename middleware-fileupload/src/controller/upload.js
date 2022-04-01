@@ -1,38 +1,36 @@
 import fs from 'fs';
 import path from 'path';
+import pictureService from '../service/picture';
 
 class UploadController {
-  async doUploadPic(req, res, next) {
-    return await doUpload(req, res, next);
-  }
+  async doUpload(req, res, next) {
+    try {
+      let html = `<h2>Here is the picture:</h2>`;
 
-  async doUploadPics(req, res, next) {
-    req.file = req.images[0];
-    return await doUpload(req, res, next);
-  }
-}
+      req.images.forEach((img) => {
+        const destinationPath = `imgs/${img.originalname}`;
+        fs.rename(
+          img.path,
+          path.resolve(`public/${destinationPath}`),
+          function (err) {
+            if (err) throw err;
+            console.log('File moved and renamed.');
+          }
+        );
+        // save in DB
+        pictureService.createPicture({
+          fileName: img.originalname,
+          path: `/${destinationPath}`,
+        });
 
-async function doUpload(req, res, next) {
-  try {
-    let destinationPath = `imgs/${req.file.originalname}`;
+        html += `<img width='800' src='/${destinationPath}' alt='something'/>`;
+      });
 
-    fs.rename(
-      req.file.path,
-      path.resolve(`public/${destinationPath}`),
-      function (err) {
-        if (err) throw err;
-        console.log('File moved and renamed.');
-      }
-    );
-
-    return res
-      .status(200)
-      .send(
-        `<h2>Here is the picture:</h2><img width='800' src='/${destinationPath}' alt='something'/>`
-      );
-  } catch (error) {
-    console.log(error);
-    next(error);
+      return res.status(200).send(html);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
   }
 }
 

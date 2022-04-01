@@ -7,6 +7,7 @@ const checkImage = (req, res, next) => {
 
   try {
     doImageCheck(req.file);
+    req.images = [req.file];
 
     return next();
   } catch (error) {
